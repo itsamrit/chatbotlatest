@@ -19,7 +19,7 @@ main {
 }
 
 main {
-  background-color: #fff;
+  background-color: black;
 }
 
 h1 {
@@ -141,3 +141,8 @@ button:focus-visible {
 button:hover {
   opacity: 0.95;
 }
+
+body {
+  background-color: black;
+}
+
