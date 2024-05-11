@@ -9,18 +9,28 @@ form.onsubmit = async (ev) => {
   output.textContent = 'Generating...';
 
   try {
-    // Load the image as a base64 string
-    let imageUrl = form.elements.namedItem('chosen-image').value;
-    let imageBase64 = await fetch(imageUrl)
-      .then(r => r.arrayBuffer())
-      .then(a => base64js.fromByteArray(new Uint8Array(a)));
+    // Get the uploaded image file
+    let imageFile = document.getElementById('upload-image').files[0];
 
-    // Assemble the prompt by combining the text with the chosen image
+    // Check if an image is selected
+    if (!imageFile) {
+      throw new Error('Please select an image.');
+    }
+
+    // Convert the image file to base64
+    let imageBase64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(imageFile);
+    });
+
+    // Assemble the prompt by combining the text with the uploaded image
     let contents = [
       {
         role: 'user',
         parts: [
-          { inline_data: { mime_type: 'image/jpeg', data: imageBase64, } },
+          { inline_data: { mime_type: imageFile.type, data: imageBase64 } },
           { text: promptInput.value }
         ]
       }
