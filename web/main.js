@@ -2,6 +2,9 @@ import { streamGemini } from './gemini-api.js';
 
 let form = document.querySelector('form');
 let promptInput = document.querySelector('input[name="prompt"]');
+let languageInput = document.getElementById('language');
+let businessTypePicker = document.getElementById('business-type');
+// let industryPicker = document.getElementById('industry-picker');
 let output = document.querySelector('.output');
 
 form.onsubmit = async (ev) => {
@@ -32,7 +35,7 @@ form.onsubmit = async (ev) => {
         {
           role: 'user',
           parts: [
-            { text: promptInput.value }
+            { text: 'give the data about ' + businessTypePicker.value +  '.'+ 'The question is' +  promptInput.value+ 'Please Provide the answer in' + languageInput.value }
           ]
         }
       ];
@@ -42,7 +45,7 @@ form.onsubmit = async (ev) => {
           role: 'user',
           parts: [
             { inline_data: { mime_type: imageFile.type, data: imageBase64 } },
-            { text: promptInput.value }
+            { text: 'give the data about ' + businessTypePicker.value + '.'+ 'The question is' +  promptInput.value+ 'Please Provide the answer in' + languageInput.value }
           ]
         }
       ];
