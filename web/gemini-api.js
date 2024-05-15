@@ -3,7 +3,7 @@
  * parts, streaming output (as a generator function).
  */
 export async function* streamGemini({
-  model , // use 'gemini-pro' for text -> text
+  model ,
   contents = [],
 } = {}) {
   // Send the prompt to the Python backend

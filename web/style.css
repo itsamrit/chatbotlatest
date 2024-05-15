@@ -33,7 +33,6 @@ h1 {
 h1::before {
   content: '';
   display: inline-block;
-  background: url(gemini.png);
   width: 40px;
   height: 40px;
   background-size: cover;
